@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getUserById} from '../redux/features/users';
-import { tokenus, userId } from '../redux/features/auth';
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppSelector } from "../redux/store";
 import "./style.css";
 const Profile: React.FC = () => {
-    const dispatch = useAppDispatch();
     const [file, setFile] = useState();
-    const usersId = useAppSelector(userId);
-    const token = useAppSelector(tokenus)
     const user = useAppSelector((state) => state.user.item);
-    console.log(user?.img);
-console.log(usersId,token);
 
-    useEffect(() => {
-        //@ts-ignore
-        dispatch(getUserById({ usersId, token }))
-    }, [dispatch]);
+
 
 
     let now = new Date()
@@ -33,9 +23,9 @@ console.log(usersId,token);
     } else {
         message = 'Добрый вечер';
     }
-    const handleFile = (e: any) => {
-        setFile(e.target.files[0])
-    }
+const handleFile = (e: any) => {
+    setFile(e.target.file)
+}
     return (
 
         <div className="background__image">
@@ -51,11 +41,13 @@ console.log(usersId,token);
                                     <img
                                         className="img"
                                         src={`http://localhost:5000/${user?.img}`}
+                                        alt="logo"
                                     />
                                 ) : (
                                     <img
                                         className="img"
                                         src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
+                                        alt="logo"
                                     />
                                 )}
 

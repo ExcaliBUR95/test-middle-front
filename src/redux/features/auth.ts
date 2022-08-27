@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { RootState } from "../store";
 
 interface auth {
@@ -28,17 +27,6 @@ export type dataReg = {
 
 
 
-// const fd = new FormData();
-// // fd.append('avatar', data.file)
-// // fd.append('email', data.email)
-// // fd.append('password', data.password)
-// // fd.append('password', data.male)
-// // fd.append('name', data.name)
-// // fd.append('brithDay', data.brithDay)
-// for  (const key in data){
-//   fd.append(key, data[key])
-// }
-
 export const authSingUp = createAsyncThunk(
   "auth/signup",
   async (data, thunkAPI) => {
@@ -49,16 +37,15 @@ export const authSingUp = createAsyncThunk(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
-    
-
+      }); 
+   
       const token = await res.json();
 
-      if(token.error){
-        return thunkAPI.rejectWithValue(token.error)
+      if (token.error) {
+        return thunkAPI.rejectWithValue(token.error);
       }
-    
-
+       //@ts-ignore
+       data.navigate("/signIn");
       localStorage.setItem("userId", token._id);
       localStorage.setItem("token", token.token);
       return token;
@@ -126,7 +113,6 @@ const authSlice = createSlice({
       state.error = null;
       state.token = action.payload;
     });
- 
   },
 });
 

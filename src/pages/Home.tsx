@@ -1,7 +1,5 @@
-import { useCallback, useRef } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Skeleton from "../components/userblock/Skeleton";
 import UserBlock from "../components/userblock/UserBlock";
 import { selectUserItems, selectUserStatus, Status, userFetch } from "../redux/features/users";
@@ -15,7 +13,7 @@ const Home: React.FC = () => {
     useEffect(()=> {
      dispatch(userFetch())   
      window.scroll(0, 0);
-    }, [])
+    }, [dispatch])
     return (
         <div className="container">
         <div className="content__top">
@@ -39,10 +37,6 @@ const Home: React.FC = () => {
                 ))}
           </div>
         )}
-        {/* <Pagination
-          currentPage={currentPage}
-          setCurrentPage={handleCurrentPage}
-        /> */}
       </div>
     );
 };

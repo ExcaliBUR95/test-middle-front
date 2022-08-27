@@ -11,6 +11,7 @@
     "@types/react-router": "^5.1.18",
     "axios": "^0.27.2",
     "eslint": "^8.22.0",
+    "materialize-css": "^1.0.0",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.0",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.11",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3"

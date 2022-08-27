@@ -1,13 +1,12 @@
-import React, {  useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { authSelector, authSingUp } from '../redux/features/auth';
-import { useAppDispatch, useAppSelector } from '../redux/store';
+import { useAppDispatch } from '../redux/store';
 import style from './Auth.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
@@ -20,7 +19,7 @@ const SignUp = () => {
 
     // const [file, setFile] = useState();
     const dipsatch = useAppDispatch()
-    const tokenId = useAppSelector(state => state.auth.token)
+    const navigate = useNavigate()
     const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
     }
@@ -45,10 +44,8 @@ const SignUp = () => {
     const handleBrihDay = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBrithDay(e.target.value)
     }
-    // const handleFile = (e:any) => {
-    //     setFile(e.target.files[0])
+
     const notify = () => toast(error);
-    // }
     const handleSignUp = (e: any) => {
         e.preventDefault()
         //@ts-ignore
@@ -58,21 +55,21 @@ const SignUp = () => {
             nickName,
             male,
             brithDay,
+            navigate,
         }))
     }
-    const [reg, setState] = useState("Зарегистрироваться")
-
-    const ref = useRef(true)
-    const handleAuth = () => {
-        if (ref.current) {
-            if (error) {
-                notify()
-            } else {
-          <NavLink to={'/signIn'} />
-            }
+    useEffect(() => {
+        if (error) {
+            notify()
         }
-        ref.current = false
+    }, [error])
+    // const ref = useRef(true)
+  const handleAuth = () => {
+    if (error) {
+        notify()
     }
+      
+  }
     return (
         <form className={style.wrapper} onSubmit={handleSignUp}>
             <input className={style.input} type='text'
@@ -123,7 +120,7 @@ const SignUp = () => {
                 onChange={handleBrihDay}
             />
             <br />
-          {error ? <button className={style.button} onClick={handleAuth} type='submit' >{reg}</button> : <Link to={'/signIn'}><button className={style.button} onClick={handleAuth} type='submit' >{reg}</button></Link> }  
+            <button className={style.button} onClick={handleAuth} type='submit' >Зарегистрироваться</button>
             <ToastContainer />
         </form>
     );

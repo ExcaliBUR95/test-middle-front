@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { toast } from 'materialize-css';
+import  { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector, authSingIn } from '../redux/features/auth';
 import { useAppDispatch } from '../redux/store';
@@ -23,7 +24,7 @@ const SignIn = () => {
         dipsatch(authSingIn({email, password}))
     }
     if(error){
-        return <div>{error}</div>
+        toast({html: error, classes: 'error'})
     }
     return (
         <form className={style.wrapper} onSubmit={handleSignUp}>

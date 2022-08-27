@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import axios from "axios";
+import { toast } from "materialize-css";
 
 type userItem = {
   email: string;
@@ -62,7 +63,7 @@ export const addImage = createAsyncThunk(
       }
       return json;
     } catch (e) {
-      thunkAPI.rejectWithValue(e);
+      toast({html: "Размер или формат не верны", classes: "error"})
     }
   }
 );
@@ -103,14 +104,13 @@ export const changePassNick = createAsyncThunk(
       //@ts-ignore
         body: JSON.stringify(data),
       });
-      
+   
       const json = await res.json();
-      
-      if (json.error) {
-        thunkAPI.rejectWithValue(json.error);
-      }
+     
+
+      return json 
     } catch (e) {
-      thunkAPI.rejectWithValue(e);
+      toast({html: "Пароль введен не правильно", classes: "error"})
     }
   }
 );

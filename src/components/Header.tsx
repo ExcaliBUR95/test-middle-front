@@ -9,14 +9,14 @@ const Header: React.FC = () => {
   const token = useAppSelector(tokenus)
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.user.item)
-  console.log(user);
+
 
 
   useEffect(() => {
     //@ts-ignore
-    dispatch(getUserById({ user, token }))
+  dispatch(getUserById({ user, token }))
 
-  }, [dispatch])
+  }, [dispatch, token, user])
 
   return (
     <div className="container">
@@ -36,11 +36,13 @@ const Header: React.FC = () => {
             <img
               className="headersImg"
               src={`http://localhost:5000/${users.img}`}
+              alt="logo"
             />
           ) : (
             <img
               className="headersImg"
               src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
+              alt="logo"
             />
           )}
           </Link>
