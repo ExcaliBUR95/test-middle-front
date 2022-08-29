@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import axios from "axios";
 import { toast } from "materialize-css";
-
+export const API_URL = "http://localhost:5000/user";
 type userItem = {
   email: string;
   _id: string;
@@ -30,7 +30,7 @@ export const userFetch = createAsyncThunk<userItem[]>(
   "user/fetchUsersStatus",
   async () => {
     const { data } = await axios.get<userItem[]>(
-      `http://localhost:5000/user/users`
+      `${API_URL}/users`
     );
 
     return data;
@@ -45,7 +45,7 @@ export const addImage = createAsyncThunk(
       //@ts-ignore
       formData.append("avatar", data.file);
       //@ts-ignore
-      const res = await fetch( `http://localhost:5000/user/img/${data.usersId}`,
+      const res = await fetch( `${API_URL}/img/${data.usersId}`,
         {
           method: "PATCH",
           headers: {
@@ -73,7 +73,7 @@ export const getUserById = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       //@ts-ignore
-      const user = await fetch(`http://localhost:5000/user/user/${data.user}`, {
+      const user = await fetch(`${API_URL}/user/${data.user}`, {
         headers: {
           "Content-Type": "application/json",
           //@ts-ignore
@@ -81,8 +81,7 @@ export const getUserById = createAsyncThunk(
         },
       });
       const dates = user.json();
-          //@ts-ignore
-      console.log(data);
+        
       
       return dates;
     } catch (e) {
@@ -96,7 +95,7 @@ export const changePassNick = createAsyncThunk(
     try {
       
       //@ts-ignore
-      const res = await fetch(`http://localhost:5000/user/pass/${data.usersId}`, {
+      const res = await fetch(`${API_URL}/pass/${data.usersId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

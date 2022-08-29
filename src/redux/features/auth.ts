@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
+export const API_URL = "http://localhost:5000/user";
 interface auth {
   signinUp: boolean;
   signinIn: boolean;
@@ -29,7 +29,7 @@ export const authSingUp = createAsyncThunk(
   "auth/signup",
   async (data, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/user/register", {
+      const res = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,10 +44,9 @@ export const authSingUp = createAsyncThunk(
       }
 
       if (res.status === 200) {
-        console.log('123');
-        
+
         //@ts-ignore
-        data.navigate("/signIn")
+        data.navigate("/signIn");
       }
     } catch (e) {
       thunkAPI.rejectWithValue(e);
@@ -59,7 +58,7 @@ export const authSingIn = createAsyncThunk(
   "auth/signin",
   async (data, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/user/login", {
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,15 +67,13 @@ export const authSingIn = createAsyncThunk(
       });
 
       const token = await res.json();
-      console.log(token);
-      
+
       if (token.error) {
         return thunkAPI.rejectWithValue(token.error);
       }
       localStorage.setItem("userId", token._id);
       localStorage.setItem("token", token.token);
-      window.location.reload()
-
+      window.location.reload();
     } catch (e) {
       thunkAPI.rejectWithValue(e);
     }

@@ -6,19 +6,20 @@ type userProps = {
     brithDay: string,
     img: string,
     male: boolean,
-    name: string
+    nickName: string
 }
-const UserBlock: React.FC<userProps> = ({ email, _id, brithDay, img, male, name }) => {
-    const age = brithDay.slice(6,10)
+const UserBlock: React.FC<userProps> = ({ email, _id, brithDay, img, male, nickName }) => {
+    const age = brithDay.slice(0,4)
     const date = new Date()
     const today = date.toLocaleDateString().slice(6,10)
     
+
     
      
     return (
         <div className="user-block-wrapper">
             <div className="user-block">
-                <Link key={_id} to={`fullCart/${_id}`}>
+                <Link key={_id} to={`/fullCart/${_id}`}>
                     {img ? (
             <img
               className="headersImg"
@@ -32,7 +33,7 @@ const UserBlock: React.FC<userProps> = ({ email, _id, brithDay, img, male, name 
               alt="logo"
             />
           )}
-                    <h4 className="user-block__title">{name}</h4>
+                    <h4 className="user-block__title">{nickName}</h4>
                 </Link >
                 <div className="user-block__bottom">
                     <div className="user-block__price">{ Number(today) - Number(age)} лет</div>

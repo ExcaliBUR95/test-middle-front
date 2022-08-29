@@ -10,6 +10,8 @@ const Header: React.FC = () => {
   const token = useSelector(tokenus)
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.user.item)
+ 
+
 
   const token2 = localStorage.getItem('token')
 
@@ -34,21 +36,26 @@ const Header: React.FC = () => {
       <div className="header__cart">
 
         <div>
-          <div>  <Link to="/account"> {users?.img ? (
-            <img
-              className="headersImg"
-              src={`http://localhost:5000/${users.img}`}
-              alt="logo"
-            />
-          ) : (
-            <img
-              className="headersImg"
-              src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
-              alt="logo"
-            />
-          )}
-          </Link>
-            <p>{users?.email}</p></div>
+          {//@ts-ignore
+            users?.map((item) => {
+              return (
+                <div key={item._id}>  <Link to="/account"> {item?.img ? (
+                  <img
+                    className="headersImg"
+                    src={`http://localhost:5000/${item.img}`}
+                    alt="logo"
+                  />
+                ) : (
+                  <img
+                    className="headersImg"
+                    src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
+                    alt="logo"
+                  />
+                )}
+                </Link>
+                  <p>{item?.email}</p></div>
+              )
+            })}
 
 
         </div>

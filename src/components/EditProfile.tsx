@@ -19,7 +19,7 @@ const EditProfile: React.FC = () => {
   const [nickName, setNickname] = useState("");
   const [password_new, setPassword_New] = useState('')
   const [password_old, setPassword_Old] = useState('')
-  const [_, forceUpdate] = useReducer(x => x+1,0)
+  const [_, forceUpdate] = useReducer(x => x + 1, 0)
   const navigate = useNavigate()
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -42,9 +42,9 @@ const EditProfile: React.FC = () => {
   };
 
   useEffect(() => {
-    if(Status.SUCCES){
+    if (Status.SUCCES) {
       forceUpdate()
-      toast({html:'Данные были успешно сохранены', classes: "succes"});
+      toast({ html: 'Данные были успешно сохранены', classes: "succes" });
     }
   }, [dispatch])
   const handleFile = (e: any) => {
@@ -54,77 +54,83 @@ const EditProfile: React.FC = () => {
   return (
     <>
       <div className="div__in__edit">
-        <div key={user?._id} className="main__div__setting">
-          <div className="setting__photo">
-            <div className="basic__info">
-              <h1 className="h2">Редактирование профиля</h1>
-              <div className="one__input">
-                <input
-                  onChange={handleChangeNickname}
-                  id="full__name"
-                  type="text"
-                  placeholder={user?.nickName}
-                />
-              </div>
-              <div>
-                <div className="password_old">
-                  <input
-                    id="full__name"
-                    onChange={handleOldPassword}
-                    value={password_old}
-                    type="text"
-                    placeholder="Введите старый пароль"
-                  />
-                </div>
-                <div className="password_new">
-                  <input
-                    id="full__name"
-                    onChange={handleNewPassword}
-                    value={password_new}
-                    type="text"
-                    placeholder="Введите новый пароль"
-                  />
-                </div>
-              </div>
-              <label htmlFor="upload_photo__edit">
-                <input
-                  id="upload_photo__edit"
-                  onChange={handleFile}
-                  type="file"
-                />
-                <div>
-                  {user?.img ? (
-                    <img
-                      className="img"
-                      src={`http://localhost:5000/${user.img}`}
-                      alt="logo"
-                    />
-                  ) : (
-                    <img
-                      className="img"
-                      src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
-                      alt="logo"
-                    />
-                  )}
-                </div>
-              </label>
-            </div>
+        {
+          //@ts-ignore
+          user?.map((item) => {
+            return (
+              <div key={item?._id} className="main__div__setting">
+                <div className="setting__photo">
+                  <div className="basic__info">
+                    <h1 className="h2">Редактирование профиля</h1>
+                    <div className="one__input">
+                      <input
+                        onChange={handleChangeNickname}
+                        id="full__name"
+                        type="text"
+                        placeholder={item?.nickName}
+                      />
+                    </div>
+                    <div>
+                      <div className="password_old">
+                        <input
+                          id="full__name"
+                          onChange={handleOldPassword}
+                          value={password_old}
+                          type="text"
+                          placeholder="Введите старый пароль"
+                        />
+                      </div>
+                      <div className="password_new">
+                        <input
+                          id="full__name"
+                          onChange={handleNewPassword}
+                          value={password_new}
+                          type="text"
+                          placeholder="Введите новый пароль"
+                        />
+                      </div>
+                    </div>
+                    <label htmlFor="upload_photo__edit">
+                      <input
+                        id="upload_photo__edit"
+                        onChange={handleFile}
+                        type="file"
+                      />
+                      <div>
+                        {item?.img ? (
+                          <img
+                            className="img"
+                            src={`http://localhost:5000/${item.img}`}
+                            alt="logo"
+                          />
+                        ) : (
+                          <img
+                            className="img"
+                            src={`https://upload.wikimedia.org/wikipedia/ru/thumb/c/ce/Aang.png/280px-Aang.png`}
+                            alt="logo"
+                          />
+                        )}
+                      </div>
+                    </label>
+                  </div>
 
-            <span className="about__info">
-              Изменение адреса электронной почты может привести к нарушению
-              входа в систему Auth, если ваши учетные записи в социальных
-              сетях не используют один и тот же адрес электронной почты.
-              Пожалуйста, используйте вход по волшебной ссылке, если вы
-              столкнулись с такой проблемой.
-            </span>
-            <input id="full__name" type="text" value={user?.email} />
-            <div className="buttons__div">
-              <button className="button__edit" onClick={handleImage}>
-                Обновить
-              </button>
-            </div>
-          </div>
-        </div>
+                  <span className="about__info">
+                    Изменение адреса электронной почты может привести к нарушению
+                    входа в систему Auth, если ваши учетные записи в социальных
+                    сетях не используют один и тот же адрес электронной почты.
+                    Пожалуйста, используйте вход по волшебной ссылке, если вы
+                    столкнулись с такой проблемой.
+                  </span>
+                  <input id="full__name" type="text" value={item?.email} />
+                  <div className="buttons__div">
+                    <button className="button__edit" onClick={handleImage}>
+                      Обновить
+                    </button>
+                  </div>
+                </div>
+              </div>)
+          })
+        }
       </div>
     </>
   );
