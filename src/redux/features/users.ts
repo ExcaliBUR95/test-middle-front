@@ -81,7 +81,9 @@ export const getUserById = createAsyncThunk(
         },
       });
       const dates = user.json();
-
+          //@ts-ignore
+      console.log(data);
+      
       return dates;
     } catch (e) {
       thunkAPI.rejectWithValue(e);

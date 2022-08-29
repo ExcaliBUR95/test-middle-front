@@ -25,8 +25,6 @@ export type dataReg = {
   brithDay: string;
 };
 
-
-
 export const authSingUp = createAsyncThunk(
   "auth/signup",
   async (data, thunkAPI) => {
@@ -37,18 +35,20 @@ export const authSingUp = createAsyncThunk(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }); 
-   
+      });
+
       const token = await res.json();
 
       if (token.error) {
         return thunkAPI.rejectWithValue(token.error);
       }
-       //@ts-ignore
-       data.navigate("/signIn");
-      localStorage.setItem("userId", token._id);
-      localStorage.setItem("token", token.token);
-      return token;
+
+      if (res.status === 200) {
+        console.log('123');
+        
+        //@ts-ignore
+        data.navigate("/signIn")
+      }
     } catch (e) {
       thunkAPI.rejectWithValue(e);
     }
@@ -68,14 +68,15 @@ export const authSingIn = createAsyncThunk(
       });
 
       const token = await res.json();
-
+      console.log(token);
+      
       if (token.error) {
         return thunkAPI.rejectWithValue(token.error);
       }
       localStorage.setItem("userId", token._id);
       localStorage.setItem("token", token.token);
+      window.location.reload()
 
-      return token;
     } catch (e) {
       thunkAPI.rejectWithValue(e);
     }

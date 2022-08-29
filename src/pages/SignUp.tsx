@@ -64,12 +64,11 @@ const SignUp = () => {
         }
     }, [error])
     // const ref = useRef(true)
-  const handleAuth = () => {
-    if (error) {
-        notify()
+    const handleAuth = () => {
+        if (error) {
+            notify()
+        }
     }
-      
-  }
     return (
         <form className={style.wrapper} onSubmit={handleSignUp}>
             <input className={style.input} type='text'

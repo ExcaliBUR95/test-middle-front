@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import { useAppSelector } from "./redux/store";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
+import FullCart from "./components/FullCart";
 
 function App() {
   const token = useAppSelector(state => state.auth.token)
@@ -18,6 +19,7 @@ function App() {
       <Route path="/EditProfile" element={<EditProfile />} />
       <Route path="/signUp" element={<Navigate to='/'/>} />
       <Route path="/signIn" element={<Navigate to='/'/>} />
+      <Route path="/fullCart/:id" element={<FullCart />} />
       </Route>
      </Routes>
     );
@@ -28,6 +30,8 @@ function App() {
       <Route path="/people" element={<Home />} />
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/signIn" element={<SignIn />} />
+      <Route path="/EditProfile" element={<Navigate to='/'/>} />
+      <Route path="/account" element={<Navigate to='/'/>} />
       </Route>
      </Routes>
     );

@@ -1,4 +1,4 @@
-import { toast } from 'materialize-css';
+import { toast, ToastContainer }  from 'react-toastify';
 import  { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector, authSingIn } from '../redux/features/auth';
@@ -23,8 +23,10 @@ const SignIn = () => {
          //@ts-ignore
         dipsatch(authSingIn({email, password}))
     }
+    const notify = () => toast(error);
+
     if(error){
-        toast({html: error, classes: 'error'})
+        notify()
     }
     return (
         <form className={style.wrapper} onSubmit={handleSignUp}>
@@ -41,6 +43,7 @@ const SignIn = () => {
             />
             <br />
             <button className={style.button} type='submit'>Вход</button>
+            <ToastContainer />
         </form>
     );
 };

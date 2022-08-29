@@ -18,7 +18,7 @@ const UserBlock: React.FC<userProps> = ({ email, _id, brithDay, img, male, name 
     return (
         <div className="user-block-wrapper">
             <div className="user-block">
-                <Link key={_id} to={`user/${_id}`}>
+                <Link key={_id} to={`fullCart/${_id}`}>
                     {img ? (
             <img
               className="headersImg"
