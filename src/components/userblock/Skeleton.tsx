@@ -2,7 +2,7 @@ import ContentLoader from "react-content-loader"
 import React from 'react';
 
 type skeletonProps = {
-    props: any
+    props: number
   }
 const Skeleton: React.FC<skeletonProps> = (props) => {
     return (

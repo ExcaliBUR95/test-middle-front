@@ -10,6 +10,7 @@ type userItem = {
   img: string;
   male: Boolean;
   nickName: string;
+  file: File;
 };
 export enum Status {
   LOADING = "loading",
@@ -26,6 +27,18 @@ const initialState: userSliceState = {
   item: null,
   status: Status.LOADING,
 };
+export type image = {
+  file: File;
+  usersId: string;
+  token: string;
+};
+export type changeProfile = {
+  usersId: string;
+  token: string;
+  password_old:string;
+   password_new: string;
+    nickName: string;
+}
 export const userFetch = createAsyncThunk<userItem[]>(
   "user/fetchUsersStatus",
   async () => {
@@ -36,26 +49,21 @@ export const userFetch = createAsyncThunk<userItem[]>(
     return data;
   }
 );
-export const addImage = createAsyncThunk(
+export const addImage = createAsyncThunk<image, image>(
   "add/image",
-  //@ts-ignore
   async (data, thunkAPI) => {
     try {
       const formData = new FormData();
-      //@ts-ignore
       formData.append("avatar", data.file);
-      //@ts-ignore
       const res = await fetch( `${API_URL}/img/${data.usersId}`,
         {
           method: "PATCH",
           headers: {
-            //@ts-ignore
             authorization: `Bearer ${data.token}`,
           },
           body: formData,
         }
       );
-            //@ts-ignore
       const json = await res.json();
 
       if (json.error) {
@@ -89,20 +97,17 @@ export const getUserById = createAsyncThunk(
     }
   }
 );
-export const changePassNick = createAsyncThunk(
+export const changePassNick = createAsyncThunk<changeProfile, changeProfile>(
   "change/passNick",
   async (data, thunkAPI) => {
     try {
       
-      //@ts-ignore
       const res = await fetch(`${API_URL}/pass/${data.usersId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-      //@ts-ignore
           Authorization: `Bearer ${data.token}`,
         },
-      //@ts-ignore
         body: JSON.stringify(data),
       });
    

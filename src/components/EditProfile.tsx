@@ -5,6 +5,8 @@ import { tokenus, userId } from "../redux/features/auth";
 import {
   addImage,
   changePassNick,
+  changeProfile,
+  image,
   Status
 } from "../redux/features/users";
 import { useAppDispatch, useAppSelector } from "../redux/store";
@@ -34,10 +36,8 @@ const EditProfile: React.FC = () => {
 
 
   const handleImage = () => {
-    //@ts-ignore
-    dispatch(addImage({ usersId, file, token, navigate }));
-    //@ts-ignore
-    dispatch(changePassNick({ password_old, password_new, nickName, usersId, token, navigate }));
+    dispatch(addImage({ usersId, file, token, navigate } as unknown as image));
+    dispatch(changePassNick({ password_old, password_new, nickName, usersId, token, navigate } as changeProfile));
 
   };
 

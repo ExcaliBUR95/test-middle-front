@@ -1,5 +1,5 @@
 import { toast, ToastContainer }  from 'react-toastify';
-import  { useState } from 'react';
+import  React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector, authSingIn } from '../redux/features/auth';
 import { useAppDispatch } from '../redux/store';
@@ -11,14 +11,14 @@ const SignIn = () => {
     const error = useSelector(authSelector)
     const dipsatch = useAppDispatch()
 
-    const handleSetLogin = (e: any) => {
+    const handleSetLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(e.target.value)
     }
 
-    const handleSetPassword = (e: any) => {
+    const handleSetPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
-    const handleSignUp = (e: any) => {
+    const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault()
          //@ts-ignore
         dipsatch(authSingIn({email, password}))
